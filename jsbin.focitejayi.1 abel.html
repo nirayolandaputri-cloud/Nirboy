@@ -1,0 +1,200 @@
+<!--
+Created using JS Bin
+http://jsbin.com
+
+Copyright (c) 2025 by anonymous (http://jsbin.com/focitejayi/1/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<h1>Kuis Interaktif Matematika</h1>
+<div id="quiz-container">
+    <div id="question" class="question"></div>
+    <ul id="answers" class="answers"></ul>
+    <button id="submit-btn">Jawab</button>
+    <div id="result" class="result"></div>
+</div>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Kuis Interaktif Matematika</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 10px;
+            background-color: #f7f9fc;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+        }
+        .question {
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        .answers {
+            list-style-type: none;
+            padding: 0;
+        }
+        .answers li {
+            margin-bottom: 10px;
+        }
+        input[type="radio"] {
+            margin-right: 8px;
+            cursor: pointer;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+        .correct { color: green; }
+        .wrong { color: red; }
+    </style>
+<style id="jsbin-css">
+body {
+font-family : Arial, Sans-serif;
+</style>
+</head>
+<body>
+    <h1>Kuis Interaktif Matematika</h1>
+    <div id="quiz-container">
+        <div id="question" class="question"></div>
+        <ul id="answers" class="answers"></ul>
+        <button id="submit-btn">Jawab</button>
+        <div id="result" class="result"></div>
+    </div>
+
+    <script>
+        const quiz = [
+            {
+                question: "Berapakah hasil dari 7 + 5?",
+                answers: ["10", "12", "14", "15"],
+                correct: 1
+            },
+            {
+                question: "Jika x = 3, berapakah nilai dari 2x + 4?",
+                answers: ["8", "6", "10", "12"],
+                correct: 2
+            },
+            {
+                question: "Apa hasil dari 15 ÷ 3?",
+                answers: ["3", "4", "5", "6"],
+                correct: 2
+            },
+            {
+                question: "Berapakah hasil dari 9 × 6?",
+                answers: ["36", "54", "45", "63"],
+                correct: 1
+            },
+            {
+                question: "Jika 2x = 10, berapakah nilai x?",
+                answers: ["2", "4", "5", "8"],
+                correct: 2
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+
+        const questionEl = document.getElementById("question");
+        const answersEl = document.getElementById("answers");
+        const submitBtn = document.getElementById("submit-btn");
+        const resultEl = document.getElementById("result");
+
+        function loadQuestion() {
+            clearStatus();
+            let q = quiz[currentQuestion];
+            questionEl.textContent = `Soal ${currentQuestion + 1}: ${q.question}`;
+            answersEl.innerHTML = "";
+
+            q.answers.forEach((answer, index) => {
+                const li = document.createElement("li");
+                const input = document.createElement("input");
+                input.type = "radio";
+                input.name = "answer";
+                input.id = "answer" + index;
+                input.value = index;
+                const label = document.createElement("label");
+                label.htmlFor = "answer" + index;
+                label.textContent = answer;
+
+                li.appendChild(input);
+                li.appendChild(label);
+                answersEl.appendChild(li);
+            });
+        }
+
+        function clearStatus() {
+            resultEl.textContent = "";
+        }
+
+        function showResult() {
+            let selectedOption = document.querySelector('input[name="answer"]:checked');
+            if (!selectedOption) {
+                alert("Silakan pilih jawaban sebelum melanjutkan!");
+                return;
+            }
+
+            let answer = parseInt(selectedOption.value);
+            if (answer === quiz[currentQuestion].correct) {
+                score++;
+                resultEl.textContent = "Jawaban benar!";
+                resultEl.className = "result correct";
+            } else {
+                let correctAnswerText = quiz[currentQuestion].answers[quiz[currentQuestion].correct];
+                resultEl.textContent = `Jawaban salah! Jawaban yang benar adalah: ${correctAnswerText}`;
+                resultEl.className = "result wrong";
+            }
+
+            submitBtn.textContent = currentQuestion < quiz.length - 1 ? "Soal Berikutnya" : "Lihat Hasil";
+            submitBtn.disabled = true;
+
+            setTimeout(() => {
+                submitBtn.disabled = false;
+                if (currentQuestion < quiz.length - 1) {
+                    currentQuestion++;
+                    loadQuestion();
+                    submitBtn.textContent = "Jawab";
+                    resultEl.textContent = "";
+                } else {
+                    showFinalScore();
+                }
+            }, 2000);
+        }
+
+        function showFinalScore() {
+            questionEl.textContent = "Kuis selesai!";
+            answersEl.innerHTML = "";
+            submitBtn.style.display = "none";
+            resultEl.textContent = `Skor Anda: ${score} dari ${quiz.length} soal`;
+            resultEl.className = "result";
+        }
+
+        submitBtn.addEventListener("click", showResult);
+
+        loadQuestion();
+    </script>
+<script id="jsbin-javascript">
+const quiz = [
+{
+</script>
+</body>
+</html>
