@@ -1,0 +1,57 @@
+<!--
+Created using JS Bin
+http://jsbin.com
+
+Copyright (c) 2025 by anonymous (http://jsbin.com/mozocaluca/1/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<div id="container">
+  <h2>Sistem Pernapasan Manusia</h2>
+  <p>Klik bagian organ untuk mengetahui fungsinya!</p>
+  <svg width="400" height="300" viewBox="0 0 400 300">
+    <!-- Hidung -->
+    <circle cx="50" cy="50" r="20" fill="lightblue" id="nose" class="organ"></circle>
+    <text x="50" y="55" text-anchor="middle" font-size="12">Hidung</text>
+    
+    <!-- Tenggorokan -->
+    <rect x="80" y="40" width="20" height="40" fill="pink" id="throat" class="organ"></rect>
+    <text x="90" y="65" text-anchor="middle" font-size="10">Tenggorokan</text>
+    
+    <!-- Trakea -->
+    <rect x="110" y="50" width="10" height="100" fill="yellow" id="trachea" class="organ"></rect>
+    <text x="115" y="110" text-anchor="middle" font-size="10">Trakea</text>
+    
+    <!-- Bronkus -->
+    <rect x="130" y="70" width="40" height="10" fill="orange" id="bronchus" class="organ"></rect>
+    <text x="150" y="85" text-anchor="middle" font-size="10">Bronkus</text>
+    
+    <!-- Paru-Paru -->
+    <ellipse cx="200" cy="100" rx="50" ry="70" fill="red" id="lungs" class="organ"></ellipse>
+    <text x="200" y="105" text-anchor="middle" font-size="12">Paru-Paru</text>
+    
+    <!-- Alveoli (dalam paru-paru) -->
+    <circle cx="180" cy="90" r="5" fill="white" id="alveoli" class="organ"></circle>
+    <text x="180" y="125" text-anchor="middle" font-size="8">Alveoli</text>
+  </svg>
+  <div id="info-box"></div>
+</div>
+ 
+<script id="jsbin-javascript">
+const organs = {
+  nose: "Hidung: Tempat masuknya udara. Udara disaring dan dihangatkan di sini.",
+  throat: "Tenggorokan: Jalan udara yang menghubungkan hidung ke trakea.",
+  trachea: "Trakea: Pipa yang membawa udara ke paru-paru. Dilapisi silia untuk menyaring debu.",
+  bronchus: "Bronkus: Cabang dari trakea yang masuk ke paru-paru.",
+  lungs: "Paru-Paru: Organ utama pernapasan. Oksigen masuk ke darah, karbon dioksida keluar.",
+  alveoli: "Alveoli: Kantung kecil di paru-paru tempat pertukaran gas terjadi."
+};
+
+document.querySelectorAll('.organ').forEach(organ => {
+  organ.addEventListener('click', function() {
+    const id = this.id;
+    document.getElementById('info-box').innerHTML = `<strong>${id.charAt(0).toUpperCase() + id.slice(1)}:</strong> ${organs[id]}`;
+  });
+});
+</script>
