@@ -1,0 +1,68 @@
+<!--
+Created using JS Bin
+http://jsbin.com
+
+Copyright (c) 2025 by anonymous (http://jsbin.com/yuvexehaso/1/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<style id="jsbin-css">
+#container { text-align: center; font-family: Arial; }
+#diagram { position: relative; margin: 20px auto; width: 400px; height: 300px; }
+#diagram img { position: absolute; cursor: pointer; }
+#nose { top: 10px; left: 150px; width: 50px; }
+#throat { top: 60px; left: 160px; width: 40px; }
+#trachea { top: 100px; left: 170px; width: 30px; height: 50px; }
+#bronchus { top: 150px; left: 165px; width: 40px; height: 40px; }
+#lung { top: 190px; left: 120px; width: 100px; height: 80px; }
+#explanation { margin: 20px; padding: 10px; border: 1px solid #ccc; background: #f9f9f9; }
+#animation { margin: 20px; height: 50px; background: lightblue; display: none; }
+.animate { animation: breathe 2s infinite; }
+@keyframes breathe { 0%, 100% { background: lightblue; } 50% { background: lightgreen; } }
+</style>
+<div id="container">
+  <h1>Sistem Pernafasan Manusia</h1>
+  <p>Klik bagian organ untuk mengetahui fungsinya!</p>
+  <div id="diagram">
+    <img id="lung" src="https://i.imgur.com/4Q8Z8Z8.png" alt="Paru-paru" onclick="explain('paru')">
+    <img id="nose" src="https://i.imgur.com/1a2b3c4.png" alt="Hidung" onclick="explain('hidung')">
+    <img id="throat" src="https://i.imgur.com/5d6e7f8.png" alt="Tenggorokan" onclick="explain('tenggorokan')">
+    <img id="trachea" src="https://i.imgur.com/9g0h1i2.png" alt="Trakea" onclick="explain('trakea')">
+    <img id="bronchus" src="https://i.imgur.com/3j4k5l6.png" alt="Bronkus" onclick="explain('bronkus')">
+  </div>
+  <div id="explanation"></div>
+  <button onclick="startAnimation()">Mulai Animasi Pernafasan</button>
+  <div id="animation"></div>
+  <h2>Quiz Cepat</h2>
+  <p>Apa fungsi paru-paru? <button onclick="checkAnswer('menyerap oksigen')">Menyerap oksigen</button> <button onclick="checkAnswer('mencerna makanan')">Mencerna makanan</button></p>
+  <div id="quiz-result"></div>
+</div>
+<script id="jsbin-javascript">
+function explain(part) {
+  const explanations = {
+    hidung: "Hidung: Tempat masuknya udara, menyaring debu, dan menghangatkan udara.",
+    tenggorokan: "Tenggorokan: Jalan udara yang menghubungkan hidung ke trakea.",
+    trakea: "Trakea: Pipa utama yang membawa udara ke paru-paru.",
+    bronkus: "Bronkus: Cabang dari trakea yang masuk ke paru-paru.",
+    paru: "Paru-paru: Organ yang menyerap oksigen dan mengeluarkan karbon dioksida."
+  };
+  document.getElementById('explanation').innerHTML = explanations[part];
+}
+
+function startAnimation() {
+  const anim = document.getElementById('animation');
+  anim.style.display = 'block';
+  anim.innerHTML = 'Udara masuk (Oksigen) → Paru-paru → Udara keluar (Karbon dioksida)';
+  anim.classList.add('animate');
+}
+
+function checkAnswer(answer) {
+  const result = document.getElementById('quiz-result');
+  if (answer === 'menyerap oksigen') {
+    result.innerHTML = 'Benar! Paru-paru menyerap oksigen dari udara.';
+  } else {
+    result.innerHTML = 'Salah. Coba lagi!';
+  }
+}
+</script>
